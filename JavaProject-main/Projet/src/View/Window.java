@@ -131,7 +131,7 @@ public class Window extends JFrame
 			}
 			label.setText(""); // on efface le texte
  
-                            System.out.println("TEST");
+                            System.out.println("BIte");
 			return component;
 		}
  
