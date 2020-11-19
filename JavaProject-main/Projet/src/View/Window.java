@@ -34,7 +34,7 @@ public class Window extends JFrame
         setTitle("Table Products");
         setSize(WIDTH_WINDOW, HEIGHT_WINDOW);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        buildPanelProduit();
+        buildPanel();
         setVisible(true);
     }
     
@@ -76,9 +76,9 @@ public class Window extends JFrame
     {
         panel = new JPanel();
         
-        String [] colNames = getCol("Product");
+        String [] colNames = getCol("OrderedProduct");
         System.out.println("test 1");
-        String [][] data = getLines("Product");
+        String [][] data = getLines("OrderedProduct");
         System.out.println("test 2");
         
 
