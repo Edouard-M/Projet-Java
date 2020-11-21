@@ -2,8 +2,10 @@
 package Controller;
 import static Model.DAO.*;
 import Model.*;
+import View.CreateCustomer;
 import View.Window;
 import View.Window2;
+import View.Window3;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -15,15 +17,16 @@ public class Projet
 {
     public static void main(String[] args) throws Exception
     {
-        dropAllTable();
-        createAllTable();
+        //dropAllTable();
+       // createAllTable();
         
         testDB();
         
         //selectAllProduct();
         
        //Window2 wind = new Window2();
-        Window wind = new Window();
+        Window3 wind2 = new Window3();
+        CreateCustomer wind = new CreateCustomer();
     }
     
     public static void testDB() throws Exception
@@ -43,7 +46,6 @@ public class Projet
         Employee Fred =new Employee("Fred", "Blanchard", 33, "0678964572", "3 rue des moulins maison lafittes", "fredbla@laposte.net", "pass123");
         OrderedProduct OrderedBanane= new OrderedProduct(1,1,"Banane");
         OrderedProduct OrderedKiwi= new OrderedProduct(1,1,"Kiwi");
-        Discount DiscountBanane = new Discount("DiscountBanane", 10, 9);
         kiwi.addDiscount(10, 25);
     }
     

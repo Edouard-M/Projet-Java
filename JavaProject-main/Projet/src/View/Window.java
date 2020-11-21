@@ -50,7 +50,7 @@ public class Window extends javax.swing.JFrame
     {
         initComponents();
         
-        setTitle("Table Products");
+        setTitle("Nyan Shop");
         setVisible(true);
         
         jLabel1.setIcon(new ImageIcon("src/Image/path.gif"));

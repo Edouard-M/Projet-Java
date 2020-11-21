@@ -103,7 +103,29 @@ public class DAO
         else 
             return null;
     }
-    
+        public static String searchCustomer(String enteredemail,String enteredpassword) throws Exception
+    {
+        String password="";
+      
+        
+        Connection con = getConnection();
+        PreparedStatement statement = con.prepareStatement("SELECT * FROM Customer WHERE email = '"+enteredemail+"'");
+        ResultSet result = statement.executeQuery();
+        if(result.next())
+        {
+            System.out.println(enteredpassword);
+            System.out.println(result.getString("password"));
+            if(enteredpassword == null ? result.getString("password") == null : enteredpassword.equals(result.getString("password")))
+            {
+                return ("Connected");
+            }
+          
+        }
+        
+        return ("Wrong email or password");
+       
+       
+    }
     
     public static ArrayList<String> selectAllProduct() throws Exception
     {

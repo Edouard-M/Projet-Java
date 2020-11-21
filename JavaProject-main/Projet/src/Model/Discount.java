@@ -20,7 +20,7 @@ public class Discount
         quantity = Quantity;
         price =Price; 
         name = Name;
-        insertDiscount();
+        //insertDiscount();
     }
     
     public void insertDiscount() throws Exception

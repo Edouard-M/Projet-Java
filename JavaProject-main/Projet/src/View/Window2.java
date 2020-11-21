@@ -44,7 +44,7 @@ public class Window2 extends JFrame
         setTitle("Table Products");
         setSize(WIDTH_WINDOW, HEIGHT_WINDOW);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        buildPanel();
+        buildPanelProduit();
         setVisible(true);
     }
     
@@ -52,15 +52,15 @@ public class Window2 extends JFrame
     {
         panel = new JPanel();
         
-        String [] colNames = getCol("Product");
+        String [] colNames = getCol("Customer");
         System.out.println("test 1");
-        String [][] data = getLines("Product");
+        String [][] data = getLines("Customer");
         System.out.println("test 2");
         
 
         table = new JTable(data,colNames);
         scrollTable = new JScrollPane(table);
-        table.getColumnModel().getColumn(6).setCellRenderer(new ImageCellRenderer());
+        //table.getColumnModel().getColumn(6).setCellRenderer(new ImageCellRenderer());
         //URL url = window.class.getResource("/res/images/animated.gif");
         imageIcon = new ImageIcon("src/path.gif");
         label = new JLabel(imageIcon);
@@ -88,37 +88,37 @@ public class Window2 extends JFrame
     {
         panel = new JPanel();
         
-        String [] colNames = getCol("Product");
-        String [][] data = getLines("Product");
-        
-
-        table = new JTable(data,colNames);
-        scrollTable = new JScrollPane(table);
-        
-       table.getSelectionModel().addListSelectionListener(new TableListener());
-  
-
-       
+      
         //URL url = window.class.getResource("/res/images/animated.gif");
         imageIcon = new ImageIcon("src/Image/path.gif");
         label = new JLabel(imageIcon);
-        
-        currentImageIcon = new ImageIcon("src/Image/"+currentImage);
-        currentLabel = new JLabel(currentImageIcon);
+        JTextField password= new JTextField("password");
+        JTextField email =new JTextField("email");
+        JButton connect =new JButton("Connect");
+        JButton newAccount =new JButton("create account");
+        JButton employee= new JButton("I'm an Employee");
+       
         
         JPanel panel1 = new JPanel();
         JPanel panel2 = new JPanel();
         JPanel panel3 = new JPanel();
+        JPanel panel4 = new JPanel();
+        JPanel panel5 = new JPanel();
         
-        panel1.add(label);
-        panel2.add(scrollTable);
-        panel3.add(currentLabel);
-        panel.setLayout(new GridLayout(3,1));
+        panel1.add(employee);
+        panel2.add(label);
+        panel3.add(email);
+        panel4.add(password);
+        panel5.add(connect);
+        panel5.add(newAccount);
+        panel.setLayout(new GridLayout(5,1));
         
         
         panel.add(panel1);
         panel.add(panel2);
         panel.add(panel3);
+         panel.add(panel4);
+        panel.add(panel5);
         add(panel);
         //add(label);
         //add(scrollTable);
