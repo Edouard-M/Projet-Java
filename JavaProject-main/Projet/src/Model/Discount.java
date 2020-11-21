@@ -29,4 +29,19 @@ public class Discount
             query("INSERT INTO Discount (name, quantity, price) VALUES ('"+name+"', '"+quantity+"', '"+price+"')");
         } catch(Exception e){System.out.println(e);}
     }
+
+    public int getQuantity()
+    {
+        return quantity;
+    }
+
+    public double getPrice()
+    {
+        return price;
+    }
+
+    public String getName()
+    {
+        return name;
+    }
 }

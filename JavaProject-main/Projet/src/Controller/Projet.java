@@ -22,8 +22,8 @@ public class Projet
         
         //selectAllProduct();
         
-       Window2 wind = new Window2();
-        //Window wind = new Window();
+       //Window2 wind = new Window2();
+        Window wind = new Window();
     }
     
     public static void testDB() throws Exception

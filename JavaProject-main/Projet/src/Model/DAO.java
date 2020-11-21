@@ -80,6 +80,30 @@ public class DAO
         }
     }
     
+    public static Discount searchDiscount(String search) throws Exception
+    {
+        String name="";
+        int quantity=0;
+        double price=0;
+        
+        Connection con = getConnection();
+        PreparedStatement statement = con.prepareStatement("SELECT * FROM Discount WHERE name = '"+search+"'");
+        ResultSet result = statement.executeQuery();
+        if(result.next())
+        {
+                name = result.getString("name");
+                quantity = result.getInt("quantity");
+                price = result.getDouble("price");
+        
+        System.out.println("Result = " + name + " " + quantity + " " + price);
+        
+        Discount discount = new Discount(name, quantity, price);
+        return discount;
+        }
+        else 
+            return null;
+    }
+    
     
     public static ArrayList<String> selectAllProduct() throws Exception
     {
