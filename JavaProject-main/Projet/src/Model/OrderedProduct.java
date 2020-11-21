@@ -16,32 +16,52 @@ import java.sql.ResultSet;
  */
 public class OrderedProduct
 {
-    private int OrderNumber;
-    private String name;
+    private int orderID;
+    private int id;
+    private String productName;
     private int quantity;
     private double price;
  
 
-    public OrderedProduct(int OrderNumber, int quantity, String name) throws Exception
+    public OrderedProduct(int OrderID, int ID, String ProductName, int Quantity, double Price) throws Exception
     {
-        this.OrderNumber = OrderNumber;
-        this.quantity = quantity;
-        this.name = name;
-        price=findprice();
+        this.orderID = OrderID;
+        this.id= ID;
+        this.productName = ProductName;
+        this.quantity = Quantity;
+        this.price = Price;
+        //price=findprice();
         insertOrderedProduct();
     }
-    public double findprice()
+    /*public double findprice()
     {
         // A FAIRE
         return 0;
-    }
+    }*/
     
-      public void insertOrderedProduct() throws Exception
+    public void insertOrderedProduct() throws Exception
     {
         try{
-            query("INSERT INTO OrderedProduct (OrderNumber, name,quantity, price) VALUES ('"+OrderNumber+"', '"+name+"', '"+quantity+"', '"+price+"')");
+            query("INSERT INTO OrderedProduct ( orderID, productName, quantity) VALUES ('"+orderID+"', '"+productName+"', '"+quantity+"')");
         } 
         catch(Exception e){System.out.println(e);}
     }
+
+    public String getProductName()
+    {
+        return productName;
+    }
+
+    public int getQuantity()
+    {
+        return quantity;
+    }
+
+    public double getPrice()
+    {
+        return price;
+    }
+    
+    
     
 }
