@@ -26,22 +26,7 @@ public class Discount
     public void insertDiscount() throws Exception
     {
         try{
-            boolean exist=false;
-            Connection con = getConnection();
-            
-            PreparedStatement statement = con.prepareStatement("SELECT * FROM Discount ORDER BY name");
-            ResultSet result = statement.executeQuery();
-            /*while(result.next())
-            {
-                if(name.equals(result.getString("name")))
-                    exist = true;
-            }
-            
-            if(exist == false)
-            { */
-                PreparedStatement posted = con.prepareStatement("INSERT INTO Discount (name, quantity, price) VALUES ('"+name+"', '"+quantity+"', '"+price+"')");
-                posted.executeUpdate();
-            //}
+            query("INSERT INTO Discount (name, quantity, price) VALUES ('"+name+"', '"+quantity+"', '"+price+"')");
         } catch(Exception e){System.out.println(e);}
     }
 }

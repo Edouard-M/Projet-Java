@@ -5,7 +5,7 @@
  */
 package Model;
 
-import static Model.DAO.getConnection;
+import static Model.DAO.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -28,22 +28,7 @@ public class Customer extends Person
         public void insertCustomer() throws Exception
     {
         try{
-            boolean exist=false;
-            Connection con = getConnection();
-            
-           PreparedStatement statement = con.prepareStatement("SELECT * FROM Customer ORDER BY email");
-           ResultSet result = statement.executeQuery();
-            /*while(result.next())
-            {
-                if(name.equals(result.getString("name")))
-                    exist = true;
-            }
-            if(exist == false)
-            {*/
-                PreparedStatement insert = con.prepareStatement("INSERT INTO Customer (name, firstName, age, phone, address, email, password, fidelityPoint) VALUES ('"+name+"', '"+firstName+"', '"+age+"', '"+phone+"', '"+address+"', '"+email+"', '"+password+"', '"+fidelityPoint+"')");
-                insert.executeUpdate();
-            //}
-
+            query("INSERT INTO Customer (name, firstName, age, phone, address, email, password, fidelityPoint) VALUES ('"+name+"', '"+firstName+"', '"+age+"', '"+phone+"', '"+address+"', '"+email+"', '"+password+"', '"+fidelityPoint+"')");
         } catch(Exception e){System.out.println(e);}
     }
     

@@ -43,88 +43,39 @@ public class DAO
         }
         return null;
     }
+  
     
-    public static Product getProduct()
+    public static PreparedStatement query(String query)
     {
-        Product product;
-        
+        try{
+            boolean exist=false;
+            Connection con = getConnection();
+            PreparedStatement statement = con.prepareStatement(query);
+            statement.executeUpdate();
+            return statement;
+        } catch(Exception e){
+            System.out.println(e);}
         return null;
     }
     
-    
-    
-    public static void createTableProduct() throws Exception
+    public static void createAllTable() throws Exception
     {
-        try
-        {
-            Connection con = getConnection();
-            //PreparedStatement create = con.prepareStatement("CREATE TABLE IF NOT EXISTS Product(id int NOT NULL AUTO_INCREMENT, name varchar(255), category varchar(255), description varchar(255), price double, stock int, discountId int, PRIMARY KEY(id))");
-            PreparedStatement create = con.prepareStatement("CREATE TABLE IF NOT EXISTS Product( name varchar(255), category varchar(255), description varchar(255), price double, stock int, discountId int, image varchar(255), PRIMARY KEY(name))");
-            create.executeUpdate();
-            //System.out.println("Succeed creation of Product Table");
+        try{
+        Connection con = getConnection();
+        PreparedStatement create;
+        create = con.prepareStatement("CREATE TABLE IF NOT EXISTS Product( name varchar(255), category varchar(255), description varchar(255), price double, stock int, discountId int, image varchar(255), PRIMARY KEY(name))");
+        create.executeUpdate();
+        create = con.prepareStatement("CREATE TABLE IF NOT EXISTS OrderedProduct( OrderNumber int, name varchar(255), quantity int, price double, PRIMARY KEY(name,OrderNumber))");
+        create.executeUpdate();
+        create = con.prepareStatement("CREATE TABLE IF NOT EXISTS Customer( name varchar(255), firstName varchar(255), age int, phone varchar(255), address varchar(255), email varchar(255), password varchar(255), fidelityPoint int, PRIMARY KEY(email))");
+        create.executeUpdate();
+        create = con.prepareStatement("CREATE TABLE IF NOT EXISTS Employee( name varchar(255), firstName varchar(255), age int, phone varchar(255), address varchar(255), email varchar(255), password varchar(255), PRIMARY KEY(email))");
+        create.executeUpdate();
+        create = con.prepareStatement("CREATE TABLE IF NOT EXISTS Discount( name varchar(255), quantity int, price double, PRIMARY KEY(name))");
+        create.executeUpdate();
+            System.out.println("All Table Created");
         }
-        catch (Exception e)
-        {
-            System.out.println(e);
-        }
-    }
-        public static void createTableOrderedProduct() throws Exception
-    {
-        try
-        {
-            Connection con = getConnection();
-            //PreparedStatement create = con.prepareStatement("CREATE TABLE IF NOT EXISTS Product(id int NOT NULL AUTO_INCREMENT, name varchar(255), category varchar(255), description varchar(255), price double, stock int, discountId int, PRIMARY KEY(id))");
-            PreparedStatement create = con.prepareStatement("CREATE TABLE IF NOT EXISTS OrderedProduct( OrderNumber int, name varchar(255), quantity int, price double, PRIMARY KEY(name,OrderNumber))");
-            create.executeUpdate();
-            //System.out.println("Succeed creation of Product Table");
-        }
-        catch (Exception e)
-        {
-            System.out.println(e);
-        }
-    }
-        public static void createTableCustomer() throws Exception
-    {
-        try
-        {
-            Connection con = getConnection();
-            //PreparedStatement create = con.prepareStatement("CREATE TABLE IF NOT EXISTS Product(id int NOT NULL AUTO_INCREMENT, name varchar(255), category varchar(255), description varchar(255), price double, stock int, discountId int, PRIMARY KEY(id))");
-            PreparedStatement create = con.prepareStatement("CREATE TABLE IF NOT EXISTS Customer( name varchar(255), firstName varchar(255), age int, phone varchar(255), address varchar(255), email varchar(255), password varchar(255), fidelityPoint int, PRIMARY KEY(email))");
-            create.executeUpdate();
-            //System.out.println("Succeed creation of Product Table");
-        }
-        catch (Exception e)
-        {
-            System.out.println(e);
-        }
-    }
-        public static void createTableEmployee() throws Exception
-    {
-        try
-        {
-            Connection con = getConnection();
-            //PreparedStatement create = con.prepareStatement("CREATE TABLE IF NOT EXISTS Product(id int NOT NULL AUTO_INCREMENT, name varchar(255), category varchar(255), description varchar(255), price double, stock int, discountId int, PRIMARY KEY(id))");
-            PreparedStatement create = con.prepareStatement("CREATE TABLE IF NOT EXISTS Employee( name varchar(255), firstName varchar(255), age int, phone varchar(255), address varchar(255), email varchar(255), password varchar(255), PRIMARY KEY(email))");
-            create.executeUpdate();
-            //System.out.println("Succeed creation of Product Table");
-        }
-        catch (Exception e)
-        {
-            System.out.println(e);
-        }
-    }
-    public static void createTableDiscount() throws Exception
-    {
-        try
-        {
-            Connection con = getConnection();
-            //PreparedStatement create = con.prepareStatement("CREATE TABLE IF NOT EXISTS Discount(id int NOT NULL AUTO_INCREMENT, name varchar(255), quantity int, price double, PRIMARY KEY(id))");
-            PreparedStatement create = con.prepareStatement("CREATE TABLE IF NOT EXISTS Discount( name varchar(255), quantity int, price double, PRIMARY KEY(name))");
-            create.executeUpdate();
-            //System.out.println("Succeed creation of Discount Table");
-        }
-        catch (Exception e)
-        {
+        catch(Exception e){
             System.out.println(e);
         }
     }
@@ -168,6 +119,7 @@ public class DAO
         return array.size();
     }
     
+    
     public static String[] getCol(String tableName) throws Exception
     {
         String[] col;
@@ -192,7 +144,6 @@ public class DAO
     {
         int numRows = getRowSize(tableName);
         String[][] lines;
-   
         
         Connection con = getConnection();
         PreparedStatement statement = con.prepareStatement("SELECT * FROM " +tableName+ " ORDER BY name");
@@ -213,7 +164,6 @@ public class DAO
             result.next();
          }
         }
-        
         
         return lines;
     }

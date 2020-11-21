@@ -5,7 +5,7 @@
  */
 package Model;
 
-import static Model.DAO.getConnection;
+import static Model.DAO.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -39,23 +39,9 @@ public class OrderedProduct
       public void insertOrderedProduct() throws Exception
     {
         try{
-            boolean exist=false;
-            Connection con = getConnection();
-            
-            PreparedStatement statement = con.prepareStatement("SELECT * FROM OrderedProduct ORDER BY OrderNumber");
-            ResultSet result = statement.executeQuery();
-            /*while(result.next())
-            {
-                if(name.equals(result.getString("name")))
-                    exist = true;
-            }
-            if(exist == false)
-            {*/
-                PreparedStatement insert = con.prepareStatement("INSERT INTO OrderedProduct (OrderNumber, name,quantity, price) VALUES ('"+OrderNumber+"', '"+name+"', '"+quantity+"', '"+price+"')");
-                insert.executeUpdate();
-            //}
-
-        } catch(Exception e){System.out.println(e);}
+            query("INSERT INTO OrderedProduct (OrderNumber, name,quantity, price) VALUES ('"+OrderNumber+"', '"+name+"', '"+quantity+"', '"+price+"')");
+        } 
+        catch(Exception e){System.out.println(e);}
     }
     
 }

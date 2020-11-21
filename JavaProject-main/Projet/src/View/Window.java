@@ -1,4 +1,8 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package View;
 
 import static Model.DAO.*;
@@ -7,20 +11,26 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridLayout;
 import static java.awt.SystemColor.window;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.net.URL;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
-
 /**
- * @author Edouard MIGNIEN
- * @author Clément BOUVARD
+ *
+ * @author Edoua
  */
-public class Window extends JFrame
+public class Window extends javax.swing.JFrame
 {
+
     final int WIDTH_WINDOW = 800;
-    final int HEIGHT_WINDOW = 800;
+    final int HEIGHT_WINDOW = 700;
     
     private JPanel panel;
     private JTable table;
@@ -28,115 +38,195 @@ public class Window extends JFrame
     private ImageIcon imageIcon;
     JScrollPane scrollTable;
     
-    
+    private ImageIcon currentImageIcon;
+    private String currentImage;
+    /**
+     * Creates new form Window
+     */
     public Window() throws Exception
     {
+        initComponents();
+        
         setTitle("Table Products");
         setSize(WIDTH_WINDOW, HEIGHT_WINDOW);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         buildPanel();
         setVisible(true);
     }
-    
-    public void buildPanelProduit() throws Exception
-    {
-        panel = new JPanel();
-        
-        String [] colNames = getCol("Product");
-        System.out.println("test 1");
-        String [][] data = getLines("Product");
-        System.out.println("test 2");
-        
 
-        table = new JTable(data,colNames);
-        scrollTable = new JScrollPane(table);
-        table.getColumnModel().getColumn(6).setCellRenderer(new ImageCellRenderer());
-        //URL url = window.class.getResource("/res/images/animated.gif");
-        imageIcon = new ImageIcon("src/path.gif");
-        label = new JLabel(imageIcon);
-        
-        JPanel panel1 = new JPanel();
-        JPanel panel2 = new JPanel();
-        
-        panel1.add(label);
-        panel2.add(scrollTable);
-        panel.setLayout(new GridLayout(3,1));
-        
-        
-        panel.add(panel1);
-        panel.add(panel2);
-        add(panel);
-        //add(label);
-        //add(scrollTable);
-        
-        //panel.add(scrollTable);
-        //add(panel);
-    }
      public void buildPanel() throws Exception
     {
         panel = new JPanel();
         
-        String [] colNames = getCol("OrderedProduct");
-        System.out.println("test 1");
-        String [][] data = getLines("OrderedProduct");
-        System.out.println("test 2");
+        String [] colNames = getCol("Product");
+        String [][] data = getLines("Product");
         
 
         table = new JTable(data,colNames);
-        scrollTable = new JScrollPane(table);
+        jScrollPane1 = new JScrollPane(table);
+        
+        table.getSelectionModel().addListSelectionListener(new TableListener());
+  
+
        
         //URL url = window.class.getResource("/res/images/animated.gif");
-        imageIcon = new ImageIcon("src/path.gif");
+        imageIcon = new ImageIcon("src/Image/path.gif");
         label = new JLabel(imageIcon);
         
-        JPanel panel1 = new JPanel();
-        JPanel panel2 = new JPanel();
-        
-        panel1.add(label);
-        panel2.add(scrollTable);
-        panel.setLayout(new GridLayout(3,1));
+        currentImageIcon = new ImageIcon("src/Image/"+currentImage);
+        currentLabel = new JLabel(currentImageIcon);
         
         
-        panel.add(panel1);
-        panel.add(panel2);
-        add(panel);
+
+        
+        //panel.add(jScrollPane1);
+        //add(panel);
+
+      
         //add(label);
         //add(scrollTable);
         
         //panel.add(scrollTable);
         //add(panel);
     }
-     
-    public final static class ImageCellRenderer extends DefaultTableCellRenderer {
- 
-		@Override
-		public Component getTableCellRendererComponent(JTable table,
-				Object value, boolean isSelected, boolean hasFocus, int row,
-				int column) {
- 
-			Component component = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
- 
-			JLabel label = (JLabel)component;
-			String cheminImage = String.valueOf(value);
- 
-			ImageIcon icon = new ImageIcon(cheminImage);
- 
-			if ( icon.getImageLoadStatus()==java.awt.MediaTracker.COMPLETE ) {
-				label.setIcon(icon);
-				table.setRowHeight(row, icon.getIconHeight());
-			}
-			else {
-				label.setIcon(null);
-				table.setRowHeight(row, table.getRowHeight());
-			}
-			label.setText(""); // on efface le texte
- 
-                            System.out.println("Non test");
-			return component;
-		}
- 
- 
-	}
+    
+    public class TableListener implements ListSelectionListener
+    {
+        
+        @Override
+        public void valueChanged(ListSelectionEvent e)
+        {
+            int viewRow = table.getSelectedRow();
+            String name = (String) table.getValueAt(viewRow, 0);
+            currentImage = (String) table.getValueAt(viewRow, 6);
+            System.out.println("Selected : " + name);
+            System.out.println("Selected image : " + currentImage);
+            
+
+            panel.remove(2);
+            currentImageIcon = new ImageIcon("src/Image/"+currentImage);
+            currentLabel = new JLabel(currentImageIcon);
+            JPanel newPanel = new JPanel();
+            newPanel.add(currentLabel);
+            panel.add(newPanel);
+            add(panel);
+            revalidate();
+            repaint();
+        }
+    }
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    /**
+     * This method is called from within the constructor to initialize the form. WARNING: Do NOT modify this code. The content of this method is always regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents()
+    {
+
+        jScrollPane1 = new javax.swing.JScrollPane();
+        currentLabel = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        currentLabel.setText("currentLabel");
+
+        jLabel1.setText("jLabel1");
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(74, 74, 74)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(currentLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1))
+                .addGap(62, 62, 62))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(132, 132, 132)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(107, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(16, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(currentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[])
+    {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try
+        {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
+                if ("Nimbus".equals(info.getName()))
+                {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+        } catch (ClassNotFoundException ex)
+        {
+            java.util.logging.Logger.getLogger(Window.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex)
+        {
+            java.util.logging.Logger.getLogger(Window.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex)
+        {
+            java.util.logging.Logger.getLogger(Window.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex)
+        {
+            java.util.logging.Logger.getLogger(Window.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable()
+        {
+            public void run()
+            {
+                try
+                {
+                    new Window().setVisible(true);
+                } catch (Exception ex)
+                {
+                    Logger.getLogger(Window.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel currentLabel;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    // End of variables declaration//GEN-END:variables
 }

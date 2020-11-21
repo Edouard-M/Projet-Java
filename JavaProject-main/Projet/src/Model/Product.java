@@ -40,23 +40,9 @@ public class Product
     public void insertProduct() throws Exception
     {
         try{
-            boolean exist=false;
-            Connection con = getConnection();
-            
-            PreparedStatement statement = con.prepareStatement("SELECT * FROM Product ORDER BY name");
-            ResultSet result = statement.executeQuery();
-            /*while(result.next())
-            {
-                if(name.equals(result.getString("name")))
-                    exist = true;
-            }
-            if(exist == false)
-            {*/
-                PreparedStatement insert = con.prepareStatement("INSERT INTO Product (name, category, description, price, stock, image) VALUES ('"+name+"', '"+category+"', '"+description+"', '"+price+"', '"+stock+"', '"+image+"')");
-                insert.executeUpdate();
-            //}
-
-        } catch(Exception e){System.out.println(e);}
+            query("INSERT INTO Product (name, category, description, price, stock, image) VALUES ('"+name+"', '"+category+"', '"+description+"', '"+price+"', '"+stock+"', '"+image+"')");
+        }
+        catch(Exception e){System.out.println(e);}
     }
     
     
